@@ -8,6 +8,8 @@ urlpatterns = [
      path("", include('core.urls')),
     path("admin/", admin.site.urls ),
     path('dashboard/',include('dashboard.urls', namespace='dashboard') ),
+    path('inventory/',include('inventory.urls', namespace='inventory') ),
+    path('forecast/',include('forecast.urls', namespace='forecast') ),
    
     
 ]

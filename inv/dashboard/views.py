@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from inventory.models import   MasterProduct, Product_sales
+from django.db import models
 @login_required
 def dashboard_redirect(request):
     """
@@ -32,16 +33,11 @@ def superuser_dashboard(request):
 
 @login_required
 def user_dashboard(request):
-    """
-    Normal user dashboard.
-    """
+    low_stock_products = MasterProduct.objects.filter(current_stock__lte=models.F('reorder_threshold'))
+    recent_sales = Product_sales.objects.select_related('product').order_by('-order_date')[:10]
+
     context = {
-        'my_orders': [
-            {'id': 201, 'product': 'Keyboard', 'quantity': 2, 'status': 'Delivered'},
-            {'id': 202, 'product': 'Monitor', 'quantity': 1, 'status': 'Pending'},
-        ],
-        'low_stock_alerts': [
-            {'product': 'Mouse', 'remaining': 3}
-        ]
+        "low_stock_products": low_stock_products,
+        "recent_sales": recent_sales,
     }
     return render(request, 'dashboard/user_dashboard.html', context)

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "core",
     "dashboard",
+    "inventory",
+    "forecast",
 ]
 
 MIDDLEWARE = [
@@ -75,14 +77,21 @@ WSGI_APPLICATION = "inv.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'inv',        # your database name
+#         'USER': 'kygiet2',     # the user you just created
+#         'PASSWORD': 'lbSHBBK77', 
+#         'HOST': 'localhost',  
+#         'PORT': '5432',       
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'inv',        # your database name
-        'USER': 'kygiet2',     # the user you just created
-        'PASSWORD': 'lbSHBBK77', 
-        'HOST': 'localhost',  
-        'PORT': '5432',       
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
